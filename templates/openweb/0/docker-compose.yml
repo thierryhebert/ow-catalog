@@ -3,8 +3,10 @@ services:
   nginx:
     image: registry.srvopenwebrancher.local:5000/ow-nginx
     stdin_open: true
-    volumes_from:
-    - php
+    volumes:
+    - openwebdata:/var/www/html/openweb-repo/web
+    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
     tty: true
     links:
     - php:php
@@ -23,6 +25,7 @@ services:
     external_links:
     - galera/galera-lb:database
     volumes:
+    - openwebdata:/var/www/html/openweb-repo/web
     - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
     - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
     tty: true
@@ -36,3 +39,5 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
+volumes:
+  openwebdata: {}
