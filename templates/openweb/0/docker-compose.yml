@@ -4,7 +4,7 @@ services:
     image: registry.srvopenwebrancher.local:5000/ow-nginx
     stdin_open: true
     volumes_from:
-    - php:ro
+    - php
     tty: true
     links:
     - php:php
