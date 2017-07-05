@@ -3,9 +3,8 @@ services:
   nginx:
     image: registry.srvopenwebrancher.local:5000/ow-nginx
     stdin_open: true
-    volumes:
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+    volumes_from:
+    - php:ro
     tty: true
     links:
     - php:php
