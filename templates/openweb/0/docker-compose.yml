@@ -1,11 +1,11 @@
 version: '2'
 services:
   openweb-data:
-  image: registry.srvopenwebrancher.local:5000/ow-php
-  volumes:
-    - /var/www/html/openweb-repo/web
-  labels:
-    io.rancher.container.start_once: true
+    image: registry.srvopenwebrancher.local:5000/ow-php
+    volumes:
+      - /var/www/html/openweb-repo/web
+    labels:
+      io.rancher.container.start_once: true
   php:
     image: registry.srvopenwebrancher.local:5000/ow-php
     environment:
