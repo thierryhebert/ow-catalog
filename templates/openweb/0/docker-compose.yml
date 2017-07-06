@@ -1,17 +1,11 @@
 version: '2'
 services:
-  nginx:
-    image: registry.srvopenwebrancher.local:5000/ow-nginx
-    stdin_open: true
-    volumes:
-    - openwebdata:/var/www/html/openweb-repo/web
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
-    tty: true
-    links:
-    - php:php
-    labels:
-      io.rancher.container.pull_image: always
+  openweb-data:
+  image: registry.srvopenwebrancher.local:5000/ow-php
+  volumes:
+    - /var/www/html/openweb-repo/web
+  labels:
+    io.rancher.container.start_once: true
   php:
     image: registry.srvopenwebrancher.local:5000/ow-php
     environment:
@@ -24,14 +18,13 @@ services:
     stdin_open: true
     external_links:
     - galera/galera-lb:database
-    volumes:
-    - openwebdata:/var/www/html/openweb-repo/web
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+    volumes_from:
+    - openweb-data
     tty: true
     links:
     - redis:redis
     labels:
+      io.rancher.sidekicks: openweb-data
       io.rancher.container.pull_image: always
   redis:
     image: redis:3
@@ -39,5 +32,14 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
-volumes:
-  openwebdata: {}
+  nginx:
+    image: registry.srvopenwebrancher.local:5000/ow-nginx
+    stdin_open: true
+    volumes_from:
+    - openweb-data
+    tty: true
+    links:
+    - php:php
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_soft: io.rancher.stack.name=$${stack_name}
