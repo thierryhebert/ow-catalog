@@ -19,6 +19,10 @@ services:
     stdin_open: true
     external_links:
     - galera/galera-lb:database
+    - es-cluster/es-client:elastic
+    volumes:
+    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
     tty: true
     links:
     - redis:redis
