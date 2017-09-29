@@ -25,13 +25,14 @@ services:
     - ${mysql_service}:database
     - ${elasticsearch_service}:elastic
     volumes:
+    - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+	
 {{- if (.Values.php_source_volume)}}
       - ${php_source_volume}:/var/www/html/openweb-repo
 {{- else}}
       - openweb-${version}:/var/www/html/openweb-repo
 {{- end}}
-    - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
-    - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
     tty: true
     links:
     - redis:redis
