@@ -5,9 +5,9 @@ services:
     volumes:
 #      - openweb-${version}:/var/www/html/openweb-repo/web
 {{- if (.Values.php_source_volume)}}
-      - ${php_source_volume}:/var/www/html/openweb-repo/web
+      - ${php_source_volume}:/var/www/html/openweb-repo
 {{- else}}
-      - openweb-${version}:/var/www/html/openweb-repo/web
+      - openweb-${version}:/var/www/html/openweb-repo
 {{- end}}
     command: /bin/true
     labels:
@@ -28,6 +28,11 @@ services:
     volumes:
     - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
     - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+{{- if (.Values.php_source_volume)}}
+      - ${php_source_volume}:/var/www/html/openweb-repo
+{{- else}}
+      - openweb-${version}:/var/www/html/openweb-repo
+{{- end}}
     tty: true
     links:
     - redis:redis
