@@ -3,6 +3,8 @@ services:
   php-data:
     image: registry.srvopenwebrancher.local:5000/ow-php:${version}
     volumes:
+    - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
 {{- if (.Values.php_source_volume)}}
       - ${php_source_volume}:/var/www/html/openweb-repo
 {{- else}}
@@ -49,9 +51,6 @@ services:
     stdin_open: true
     volumes_from:
     - php-data
-    volumes:
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
-    - /mnt/APACHE_COMMON_FILES/openweb/${site_name}/themes:/var/www/html/openweb-repo/web/themes
     tty: true
     links:
     - php:php
