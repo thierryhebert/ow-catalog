@@ -12,6 +12,7 @@ version: '2'
       type: enum
       options:
         - 7.0.0-beta
+        - 7.0.1-beta
     - variable: "site_name"
       type: string
       required: true
