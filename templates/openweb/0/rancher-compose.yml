@@ -11,6 +11,7 @@ version: '2'
       description: "Version Open Web"
       type: enum
       options:
+      - 7.0.2-beta
       - 7.0.1-beta
       - 7.0.0-beta
     - variable: "site_name"
