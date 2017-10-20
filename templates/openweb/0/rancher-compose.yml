@@ -1,4 +1,4 @@
-version: '2'
+﻿version: '2'
 .catalog:
   name: "Open Web"
   version: 7.0.0
@@ -11,9 +11,8 @@ version: '2'
       description: "Version Open Web"
       type: enum
       options:
+      - 7.0.3-beta
       - 7.0.2-beta
-      - 7.0.1-beta
-      - 7.0.0-beta
     - variable: "site_name"
       type: string
       required: true
