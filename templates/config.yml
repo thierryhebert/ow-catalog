@@ -1,6 +1,6 @@
 name: Open Web
 description: Open Web
-version: 1.0.0
+version: "1.0.0"
 category: openweb
 maintainer: thierry.hebert@dlnegoce.fr
 license: 
