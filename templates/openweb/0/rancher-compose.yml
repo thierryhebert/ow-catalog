@@ -1,10 +1,10 @@
 ﻿version: '2'
 catalog:
   name: "Open Web"
-  version: 1.0.4
+  version: 1.0.0
   description: |
     Open Web version 7
-  upgrade_from: >=1.0.0
+  upgrade_from: 1.0.0
   questions:
     - variable: "version"
       required: true
