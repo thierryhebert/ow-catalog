@@ -1,5 +1,5 @@
 ﻿version: '2'
-.catalog:
+catalog:
   name: "Open Web"
   version: 7.0.0
   description: |
