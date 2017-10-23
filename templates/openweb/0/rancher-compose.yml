@@ -4,6 +4,7 @@
   version: 7.0.0
   description: |
     Open Web version 7
+  upgrade_from: 7.0.0
   questions:
     - variable: "version"
       required: true
