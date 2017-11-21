@@ -34,7 +34,7 @@ catalog:
       required: true
       label: "Service Elasticsearch"
       description: "Nom complet du service Elasticsearch (stack/service)"
-      default: "es-cluster/es-client"
+      default: "es/elasticsearch"
     - variable: "ressources_basedir"
       type: string
       required: true
