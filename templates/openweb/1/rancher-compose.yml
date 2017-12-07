@@ -1,0 +1,53 @@
+﻿version: '2'
+catalog:
+  name: "Open Web"
+  version: "1.0.0"
+  description: |
+    Open Web version 7
+  upgrade_from: "1.0.0"
+  questions:
+    - variable: "version"
+      required: true
+      label: "Version"
+      description: "Version Open Web"
+      type: enum
+      options:
+      - 7.0.23-beta
+    - variable: "site_name"
+      type: string
+      required: true
+      label: "Nom du site"
+      description: "Nom unique du site Open Web"
+    - variable: "php_source_volume"
+      type: string
+      required: false
+      label: "Sources PHP"
+      description: "Volume externe des sources PHP ; vide pour volume interne"
+    - variable: "mysql_service"
+      type: string
+      required: true
+      label: "Service Mysql"
+      description: "Nom complet du service Mysql (stack/service)"
+      default: "galera/galera-lb"
+    - variable: "elasticsearch_service"
+      type: string
+      required: true
+      label: "Service Elasticsearch"
+      description: "Nom complet du service Elasticsearch (stack/service)"
+      default: "es/elasticsearch"
+    - variable: "ressources_basedir"
+      type: string
+      required: true
+      label: "Répertoire de base des ressources"
+      description: "Racine permettant de définir le volume externe des ressources"
+      default: "/mnt/APACHE_COMMON_FILES/openweb"
+services:
+  nginx:
+    scale: 1
+    start_on_create: true
+  php:
+    scale: 1
+    start_on_create: true
+  redis:
+    scale: 1
+    start_on_create: true

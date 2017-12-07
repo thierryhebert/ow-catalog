@@ -1,0 +1,59 @@
+version: '2'
+services:
+  php-data:
+    image: reg.dlnegoce.fr/openweb/ow-php:${version}
+    volumes:
+    - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+{{- if (.Values.php_source_volume)}}
+    - ${php_source_volume}:/var/www/html/openweb-repo
+{{- else}}
+    - openweb-${version}:/var/www/html/openweb-repo
+{{- end}}
+    command: /bin/true
+    labels:
+      io.rancher.container.start_once: true
+  php:
+    image: reg.dlnegoce.fr/openweb/ow-php:${version}
+    environment:
+      ow_db_server: database
+      ow_db_name: openweb_${site_name}
+      ow_db_user: ${site_name}
+      ow_db_password: ${site_name}
+      ow_elasticsearch_index: openweb_${site_name}
+      ow_elasticsearch_servers: elastic
+    stdin_open: true
+    external_links:
+    - ${mysql_service}:database
+    - ${elasticsearch_service}:elastic
+    volumes:
+    - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
+    - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
+{{- if (.Values.php_source_volume)}}
+    - ${php_source_volume}:/var/www/html/openweb-repo
+{{- else}}
+    - openweb-${version}:/var/www/html/openweb-repo
+{{- end}}
+    tty: true
+    links:
+    - redis:redis
+    - nginx:openweb.local
+    labels:
+      io.rancher.container.pull_image: always
+  redis:
+    image: redis:3
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  nginx:
+    image: reg.dlnegoce.fr/openweb/ow-nginx
+    stdin_open: true
+    volumes_from:
+    - php-data
+    tty: true
+    links:
+    - php:php
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: php-data
