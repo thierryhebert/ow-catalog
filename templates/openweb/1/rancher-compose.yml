@@ -1,7 +1,7 @@
 ﻿version: '2'
 catalog:
   name: "Open Web"
-  version: "1.0.0"
+  version: "1.0.1"
   description: |
     Open Web version 7
   upgrade_from: "1.0.0"
