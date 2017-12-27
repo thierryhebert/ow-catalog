@@ -27,6 +27,7 @@ services:
     - ${mysql_service}:database
     - ${elasticsearch_service}:elastic
     volumes:
+    - ${ressources_basedir}/${site_name}/interface:/var/www/html/openweb-repo/web/interface
     - ${ressources_basedir}/${site_name}/ressources:/var/www/html/openweb-repo/web/ressources
     - ${ressources_basedir}/${site_name}/themes:/var/www/html/openweb-repo/web/themes
 {{- if (.Values.php_source_volume)}}
