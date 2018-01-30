@@ -41,6 +41,15 @@ catalog:
       label: "Répertoire de base des ressources"
       description: "Racine permettant de définir le volume externe des ressources"
       default: "/mnt/APACHE_COMMON_FILES/openweb"
+    - variable: "protocol"
+      required: true
+      label: "Protocol"
+      description: "Protocole à utiliser pour génération des URLs"
+      type: enum
+      options:
+      - https
+      - http
+      default: "https"
 services:
   nginx:
     scale: 1
