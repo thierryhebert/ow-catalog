@@ -12,7 +12,7 @@ catalog:
       description: "Version Open Web"
       type: enum
       options:
-      - 7.0.45-beta
+      - 7.0.46-beta
     - variable: "site_name"
       type: string
       required: true
