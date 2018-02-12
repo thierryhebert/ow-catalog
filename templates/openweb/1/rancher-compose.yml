@@ -1,6 +1,6 @@
 ﻿version: '2'
 catalog:
-  name: "Open Web"
+  name: "openweb"
   version: "1.0.1"
   description: |
     Open Web version 7
